@@ -13739,13 +13739,28 @@ div.modal-dialog pre, div.modal-dialog code, #help code, #help pre {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Initial-Data-Filter-and-QC">Initial Data Filter and QC<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#Initial-Data-Filter-and-QC">¶</a></h1>
+<h1 id="Music-Churn:--Initial-Data-Sourcing-and-Validation-Notebook">Music Churn:  Initial Data Sourcing and Validation Notebook<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#Music-Churn:--Initial-Data-Sourcing-and-Validation-Notebook">¶</a></h1><p>Python Notebook 3 of 3</p>
+<h2 id="W207,-Final-Project">W207, Final Project<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#W207,-Final-Project">¶</a></h2><p>Spring, 2018</p>
+<p>Team:  Cameron Kennedy, Gaurav Khanna, Aaron Olson</p>
+<h2 id="Overview-of-Notebooks">Overview of Notebooks<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#Overview-of-Notebooks">¶</a></h2><p>For this project, the team created 3 separate Jupyter Notebooks to document its work.  See notebook #1, (Data Preparation / Feature Extraction) for a brief description of each notebook.</p>
+<p>This is a static notebook (not intended for executing code) that documents two other aspects of the project that don't logically fit in either of the first two notebooks:</p>
+<ul>
+<li><p>First, it contains the initial data extraction code used in Google BigQuery to reduce the data set from ~30GB down to ~1.6GB, to enable it to run on local machines.</p>
+</li>
+<li><p>Second, it contains some code that performs data integrity checks, validating that the items extracted in our smaller data set approximately match those in the full data set (e.g., same level of churn, the same timeframe, etc.)</p>
+</li>
+</ul>
+<h2 id="Table-of-Contents-(this-notebook-only)">Table of Contents (this notebook only)<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#Table-of-Contents-(this-notebook-only)">¶</a></h2><ol>
+<li>Filtering the Original Dataset</li>
+<li>Data Integrity and QC</li>
+</ol>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">google.datalab.bigquery</span> <span class="k">as</span> <span class="nn">bq</span>
@@ -13758,6 +13773,14 @@ div.modal-dialog pre, div.modal-dialog code, #help code, #help pre {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="1.-Filtering-the-Original-Dataset">1. Filtering the Original Dataset<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#1.-Filtering-the-Original-Dataset">¶</a></h1>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -13802,9 +13825,17 @@ SELECT transactions.*  FROM [w207_kkbox_bq_data.transactions] as transactions IN
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="2.-Data-Integrity-and-QC">2. Data Integrity and QC<a class="anchor-link" href="http://localhost:8081/nbconvert/html/datalab/notebooks/kkbox_churn_analysis_whole_dataset.ipynb#2.-Data-Integrity-and-QC">¶</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name is_churn_large
@@ -13819,7 +13850,7 @@ FROM `w207_kkbox_bq_data.labels` AS labels
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">is_churn_large</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -13835,14 +13866,14 @@ FROM `w207_kkbox_bq_data.labels` AS labels
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[34]:</div>
+<div class="prompt output_prompt">Out[3]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="10_152436758645"><table><tbody><tr><th>f0_</th></tr><tr><td>0.06392287077349786</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.3s, cached, job: job_WFvTJUNTiVU0lg8eZM7HiKzbFhYR)<br>
+    <div class="bqtv" id="1_152440791207"><table><tbody><tr><th>f0_</th></tr><tr><td>0.06392287077349786</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.3s, cached, job: job_4vjAvXGWU8BR0-gaA__k1LRmXMTs)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -13865,10 +13896,10 @@ FROM `w207_kkbox_bq_data.labels` AS labels
         }
       });
 
-      require(['datalab/charting', 'datalab/element!10_152436758645', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!1_152440791207', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 0.06392287077349786}]}], "cols": [{"label": "f0_", "id": "f0_", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "f0_", "label": "f0_", "type": "number"}], "rows": [{"c": [{"v": 0.06392287077349786}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -13899,7 +13930,7 @@ FROM `w207_kkbox_bq_data.labels` AS labels
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name is_churn_small
@@ -13914,7 +13945,7 @@ FROM `w207_kkbox_bq_data.labels_filtered_100k` AS labels
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">is_churn_small</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -13930,14 +13961,14 @@ FROM `w207_kkbox_bq_data.labels_filtered_100k` AS labels
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[36]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="11_152436758857"><table><tbody><tr><th>f0_</th></tr><tr><td>0.5005559729526672</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.1s, cached, job: job_6qccT3EvuDYAbLt8e7bMXy_rQuJC)<br>
+    <div class="bqtv" id="2_152440791433"><table><tbody><tr><th>f0_</th></tr><tr><td>0.5005559729526672</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.1s, cached, job: job_j0ZZtc2Ftm4dOuqbI274a_u197Mg)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -13960,10 +13991,10 @@ FROM `w207_kkbox_bq_data.labels_filtered_100k` AS labels
         }
       });
 
-      require(['datalab/charting', 'datalab/element!11_152436758857', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!2_152440791433', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 0.5005559729526672}]}], "cols": [{"label": "f0_", "id": "f0_", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "f0_", "label": "f0_", "type": "number"}], "rows": [{"c": [{"v": 0.5005559729526672}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -13977,7 +14008,7 @@ FROM `w207_kkbox_bq_data.labels_filtered_100k` AS labels
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 9, fields: 'f0_'},
+            {source_index: 1, fields: 'f0_'},
             0,
             1);
         }
@@ -14003,7 +14034,7 @@ FROM `w207_kkbox_bq_data.labels_filtered_100k` AS labels
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name cities
@@ -14019,7 +14050,7 @@ GROUP BY city
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cities</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -14035,14 +14066,14 @@ GROUP BY city
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[38]:</div>
+<div class="prompt output_prompt">Out[7]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="12_152436759069"><table><tbody><tr><th>city</th><th>population</th></tr><tr><td>1</td><td>4804326</td></tr><tr><td>5</td><td>385069</td></tr><tr><td>9</td><td>47639</td></tr><tr><td>6</td><td>135200</td></tr><tr><td>4</td><td>246848</td></tr><tr><td>13</td><td>320978</td></tr><tr><td>22</td><td>210407</td></tr><tr><td>14</td><td>89940</td></tr><tr><td>8</td><td>45975</td></tr><tr><td>15</td><td>190213</td></tr><tr><td>17</td><td>27772</td></tr><tr><td>10</td><td>32482</td></tr><tr><td>11</td><td>47489</td></tr><tr><td>18</td><td>38039</td></tr><tr><td>12</td><td>66843</td></tr><tr><td>16</td><td>5092</td></tr><tr><td>21</td><td>30837</td></tr><tr><td>7</td><td>11610</td></tr><tr><td>3</td><td>27282</td></tr><tr><td>19</td><td>1199</td></tr><tr><td>20</td><td>4233</td></tr></tbody></table></div>
-    <br>(rows: 21, time: 0.1s, cached, job: job_VRruJOzjmzBAePlRp8ei86w2l3uB)<br>
+    <div class="bqtv" id="3_152440791667"><table><tbody><tr><th>city</th><th>population</th></tr><tr><td>1</td><td>4804326</td></tr><tr><td>5</td><td>385069</td></tr><tr><td>9</td><td>47639</td></tr><tr><td>6</td><td>135200</td></tr><tr><td>4</td><td>246848</td></tr><tr><td>13</td><td>320978</td></tr><tr><td>22</td><td>210407</td></tr><tr><td>14</td><td>89940</td></tr><tr><td>8</td><td>45975</td></tr><tr><td>15</td><td>190213</td></tr><tr><td>17</td><td>27772</td></tr><tr><td>10</td><td>32482</td></tr><tr><td>11</td><td>47489</td></tr><tr><td>18</td><td>38039</td></tr><tr><td>12</td><td>66843</td></tr><tr><td>16</td><td>5092</td></tr><tr><td>21</td><td>30837</td></tr><tr><td>7</td><td>11610</td></tr><tr><td>3</td><td>27282</td></tr><tr><td>19</td><td>1199</td></tr><tr><td>20</td><td>4233</td></tr></tbody></table></div>
+    <br>(rows: 21, time: 0.1s, cached, job: job_yrk2kKm9DGPQ7L5V46DB1q2KQyyp)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -14065,10 +14096,10 @@ GROUP BY city
         }
       });
 
-      require(['datalab/charting', 'datalab/element!12_152436759069', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!3_152440791667', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 1}, {"v": 4804326}]}, {"c": [{"v": 5}, {"v": 385069}]}, {"c": [{"v": 9}, {"v": 47639}]}, {"c": [{"v": 6}, {"v": 135200}]}, {"c": [{"v": 4}, {"v": 246848}]}, {"c": [{"v": 13}, {"v": 320978}]}, {"c": [{"v": 22}, {"v": 210407}]}, {"c": [{"v": 14}, {"v": 89940}]}, {"c": [{"v": 8}, {"v": 45975}]}, {"c": [{"v": 15}, {"v": 190213}]}, {"c": [{"v": 17}, {"v": 27772}]}, {"c": [{"v": 10}, {"v": 32482}]}, {"c": [{"v": 11}, {"v": 47489}]}, {"c": [{"v": 18}, {"v": 38039}]}, {"c": [{"v": 12}, {"v": 66843}]}, {"c": [{"v": 16}, {"v": 5092}]}, {"c": [{"v": 21}, {"v": 30837}]}, {"c": [{"v": 7}, {"v": 11610}]}, {"c": [{"v": 3}, {"v": 27282}]}, {"c": [{"v": 19}, {"v": 1199}]}, {"c": [{"v": 20}, {"v": 4233}]}], "cols": [{"label": "city", "id": "city", "type": "number"}, {"label": "population", "id": "population", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "city", "label": "city", "type": "number"}, {"id": "population", "label": "population", "type": "number"}], "rows": [{"c": [{"v": 1}, {"v": 4804326}]}, {"c": [{"v": 5}, {"v": 385069}]}, {"c": [{"v": 9}, {"v": 47639}]}, {"c": [{"v": 6}, {"v": 135200}]}, {"c": [{"v": 4}, {"v": 246848}]}, {"c": [{"v": 13}, {"v": 320978}]}, {"c": [{"v": 22}, {"v": 210407}]}, {"c": [{"v": 14}, {"v": 89940}]}, {"c": [{"v": 8}, {"v": 45975}]}, {"c": [{"v": 15}, {"v": 190213}]}, {"c": [{"v": 17}, {"v": 27772}]}, {"c": [{"v": 10}, {"v": 32482}]}, {"c": [{"v": 11}, {"v": 47489}]}, {"c": [{"v": 18}, {"v": 38039}]}, {"c": [{"v": 12}, {"v": 66843}]}, {"c": [{"v": 16}, {"v": 5092}]}, {"c": [{"v": 21}, {"v": 30837}]}, {"c": [{"v": 7}, {"v": 11610}]}, {"c": [{"v": 3}, {"v": 27282}]}, {"c": [{"v": 19}, {"v": 1199}]}, {"c": [{"v": 20}, {"v": 4233}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -14082,7 +14113,7 @@ GROUP BY city
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 10, fields: 'city,population'},
+            {source_index: 2, fields: 'city,population'},
             0,
             21);
         }
@@ -14099,7 +14130,7 @@ GROUP BY city
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">chart</span> columns --data cities --fields city,population
@@ -14115,7 +14146,7 @@ GROUP BY city
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[39]:</div>
+<div class="prompt output_prompt">Out[8]:</div>
 
 
 
@@ -14123,7 +14154,7 @@ GROUP BY city
 
     <div class="bqgc-container">
       
-      <div class="bqgc " id="4_152436759091">
+      <div class="bqgc " id="1_152440791707">
       </div>
     </div>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
@@ -14150,7 +14181,7 @@ GROUP BY city
       });
 
       require(['datalab/charting',
-               'datalab/element!4_152436759091',
+               'datalab/element!1_152440791707',
                'base/js/events',
                'datalab/style!/nbextensions/gcpdatalab/charting.css'
               ],
@@ -14161,9 +14192,9 @@ GROUP BY city
               events,
               'columns',
               [],
-              {"rows": [{"c": [{"v": 1}, {"v": 4804326}]}, {"c": [{"v": 5}, {"v": 385069}]}, {"c": [{"v": 9}, {"v": 47639}]}, {"c": [{"v": 6}, {"v": 135200}]}, {"c": [{"v": 4}, {"v": 246848}]}, {"c": [{"v": 13}, {"v": 320978}]}, {"c": [{"v": 22}, {"v": 210407}]}, {"c": [{"v": 14}, {"v": 89940}]}, {"c": [{"v": 8}, {"v": 45975}]}, {"c": [{"v": 15}, {"v": 190213}]}, {"c": [{"v": 17}, {"v": 27772}]}, {"c": [{"v": 10}, {"v": 32482}]}, {"c": [{"v": 11}, {"v": 47489}]}, {"c": [{"v": 18}, {"v": 38039}]}, {"c": [{"v": 12}, {"v": 66843}]}, {"c": [{"v": 16}, {"v": 5092}]}, {"c": [{"v": 21}, {"v": 30837}]}, {"c": [{"v": 7}, {"v": 11610}]}, {"c": [{"v": 3}, {"v": 27282}]}, {"c": [{"v": 19}, {"v": 1199}]}, {"c": [{"v": 20}, {"v": 4233}]}], "cols": [{"label": "city", "id": "city", "type": "number"}, {"label": "population", "id": "population", "type": "number"}]},
+              {"cols": [{"id": "city", "label": "city", "type": "number"}, {"id": "population", "label": "population", "type": "number"}], "rows": [{"c": [{"v": 1}, {"v": 4804326}]}, {"c": [{"v": 5}, {"v": 385069}]}, {"c": [{"v": 9}, {"v": 47639}]}, {"c": [{"v": 6}, {"v": 135200}]}, {"c": [{"v": 4}, {"v": 246848}]}, {"c": [{"v": 13}, {"v": 320978}]}, {"c": [{"v": 22}, {"v": 210407}]}, {"c": [{"v": 14}, {"v": 89940}]}, {"c": [{"v": 8}, {"v": 45975}]}, {"c": [{"v": 15}, {"v": 190213}]}, {"c": [{"v": 17}, {"v": 27772}]}, {"c": [{"v": 10}, {"v": 32482}]}, {"c": [{"v": 11}, {"v": 47489}]}, {"c": [{"v": 18}, {"v": 38039}]}, {"c": [{"v": 12}, {"v": 66843}]}, {"c": [{"v": 16}, {"v": 5092}]}, {"c": [{"v": 21}, {"v": 30837}]}, {"c": [{"v": 7}, {"v": 11610}]}, {"c": [{"v": 3}, {"v": 27282}]}, {"c": [{"v": 19}, {"v": 1199}]}, {"c": [{"v": 20}, {"v": 4233}]}]},
               {},
-              {"source_index": 1, "fields": "city,population", "name": 1},
+              {"source_index": 0, "fields": "city,population", "name": 0},
               0,
               21);
           }
@@ -14193,7 +14224,7 @@ GROUP BY city
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name cities
@@ -14209,7 +14240,7 @@ GROUP BY city
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cities</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -14225,14 +14256,14 @@ GROUP BY city
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[41]:</div>
+<div class="prompt output_prompt">Out[10]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="13_152436759488"><table><tbody><tr><th>city</th><th>population</th></tr><tr><td>1</td><td>40639</td></tr><tr><td>10</td><td>763</td></tr><tr><td>4</td><td>5670</td></tr><tr><td>5</td><td>8469</td></tr><tr><td>13</td><td>11012</td></tr><tr><td>14</td><td>2273</td></tr><tr><td>15</td><td>5032</td></tr><tr><td>8</td><td>937</td></tr><tr><td>12</td><td>1395</td></tr><tr><td>22</td><td>4825</td></tr><tr><td>7</td><td>290</td></tr><tr><td>6</td><td>3113</td></tr><tr><td>21</td><td>657</td></tr><tr><td>17</td><td>581</td></tr><tr><td>11</td><td>1021</td></tr><tr><td>16</td><td>118</td></tr><tr><td>9</td><td>1107</td></tr><tr><td>18</td><td>900</td></tr><tr><td>3</td><td>584</td></tr><tr><td>20</td><td>76</td></tr><tr><td>19</td><td>11</td></tr></tbody></table></div>
-    <br>(rows: 21, time: 0.2s, cached, job: job_gV83pX9lLCc3jSdGZhB1sEsQFWW0)<br>
+    <div class="bqtv" id="4_152440792124"><table><tbody><tr><th>city</th><th>population</th></tr><tr><td>1</td><td>40639</td></tr><tr><td>10</td><td>763</td></tr><tr><td>4</td><td>5670</td></tr><tr><td>5</td><td>8469</td></tr><tr><td>13</td><td>11012</td></tr><tr><td>14</td><td>2273</td></tr><tr><td>15</td><td>5032</td></tr><tr><td>8</td><td>937</td></tr><tr><td>12</td><td>1395</td></tr><tr><td>22</td><td>4825</td></tr><tr><td>7</td><td>290</td></tr><tr><td>6</td><td>3113</td></tr><tr><td>21</td><td>657</td></tr><tr><td>17</td><td>581</td></tr><tr><td>11</td><td>1021</td></tr><tr><td>16</td><td>118</td></tr><tr><td>9</td><td>1107</td></tr><tr><td>18</td><td>900</td></tr><tr><td>3</td><td>584</td></tr><tr><td>20</td><td>76</td></tr><tr><td>19</td><td>11</td></tr></tbody></table></div>
+    <br>(rows: 21, time: 0.2s, cached, job: job_RdWhYUZMElM24pjirQGUg7MdlPjt)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -14255,10 +14286,10 @@ GROUP BY city
         }
       });
 
-      require(['datalab/charting', 'datalab/element!13_152436759488', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!4_152440792124', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 1}, {"v": 40639}]}, {"c": [{"v": 10}, {"v": 763}]}, {"c": [{"v": 4}, {"v": 5670}]}, {"c": [{"v": 5}, {"v": 8469}]}, {"c": [{"v": 13}, {"v": 11012}]}, {"c": [{"v": 14}, {"v": 2273}]}, {"c": [{"v": 15}, {"v": 5032}]}, {"c": [{"v": 8}, {"v": 937}]}, {"c": [{"v": 12}, {"v": 1395}]}, {"c": [{"v": 22}, {"v": 4825}]}, {"c": [{"v": 7}, {"v": 290}]}, {"c": [{"v": 6}, {"v": 3113}]}, {"c": [{"v": 21}, {"v": 657}]}, {"c": [{"v": 17}, {"v": 581}]}, {"c": [{"v": 11}, {"v": 1021}]}, {"c": [{"v": 16}, {"v": 118}]}, {"c": [{"v": 9}, {"v": 1107}]}, {"c": [{"v": 18}, {"v": 900}]}, {"c": [{"v": 3}, {"v": 584}]}, {"c": [{"v": 20}, {"v": 76}]}, {"c": [{"v": 19}, {"v": 11}]}], "cols": [{"label": "city", "id": "city", "type": "number"}, {"label": "population", "id": "population", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "city", "label": "city", "type": "number"}, {"id": "population", "label": "population", "type": "number"}], "rows": [{"c": [{"v": 1}, {"v": 40639}]}, {"c": [{"v": 10}, {"v": 763}]}, {"c": [{"v": 4}, {"v": 5670}]}, {"c": [{"v": 5}, {"v": 8469}]}, {"c": [{"v": 13}, {"v": 11012}]}, {"c": [{"v": 14}, {"v": 2273}]}, {"c": [{"v": 15}, {"v": 5032}]}, {"c": [{"v": 8}, {"v": 937}]}, {"c": [{"v": 12}, {"v": 1395}]}, {"c": [{"v": 22}, {"v": 4825}]}, {"c": [{"v": 7}, {"v": 290}]}, {"c": [{"v": 6}, {"v": 3113}]}, {"c": [{"v": 21}, {"v": 657}]}, {"c": [{"v": 17}, {"v": 581}]}, {"c": [{"v": 11}, {"v": 1021}]}, {"c": [{"v": 16}, {"v": 118}]}, {"c": [{"v": 9}, {"v": 1107}]}, {"c": [{"v": 18}, {"v": 900}]}, {"c": [{"v": 3}, {"v": 584}]}, {"c": [{"v": 20}, {"v": 76}]}, {"c": [{"v": 19}, {"v": 11}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -14272,7 +14303,7 @@ GROUP BY city
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 11, fields: 'city,population'},
+            {source_index: 3, fields: 'city,population'},
             0,
             21);
         }
@@ -14289,7 +14320,7 @@ GROUP BY city
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">chart</span> columns --data cities --fields city,population
@@ -14305,7 +14336,7 @@ GROUP BY city
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[42]:</div>
+<div class="prompt output_prompt">Out[11]:</div>
 
 
 
@@ -14313,7 +14344,7 @@ GROUP BY city
 
     <div class="bqgc-container">
       
-      <div class="bqgc " id="5_152436759510">
+      <div class="bqgc " id="2_152440792160">
       </div>
     </div>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
@@ -14340,7 +14371,7 @@ GROUP BY city
       });
 
       require(['datalab/charting',
-               'datalab/element!5_152436759510',
+               'datalab/element!2_152440792160',
                'base/js/events',
                'datalab/style!/nbextensions/gcpdatalab/charting.css'
               ],
@@ -14351,9 +14382,9 @@ GROUP BY city
               events,
               'columns',
               [],
-              {"rows": [{"c": [{"v": 1}, {"v": 40639}]}, {"c": [{"v": 10}, {"v": 763}]}, {"c": [{"v": 4}, {"v": 5670}]}, {"c": [{"v": 5}, {"v": 8469}]}, {"c": [{"v": 13}, {"v": 11012}]}, {"c": [{"v": 14}, {"v": 2273}]}, {"c": [{"v": 15}, {"v": 5032}]}, {"c": [{"v": 8}, {"v": 937}]}, {"c": [{"v": 12}, {"v": 1395}]}, {"c": [{"v": 22}, {"v": 4825}]}, {"c": [{"v": 7}, {"v": 290}]}, {"c": [{"v": 6}, {"v": 3113}]}, {"c": [{"v": 21}, {"v": 657}]}, {"c": [{"v": 17}, {"v": 581}]}, {"c": [{"v": 11}, {"v": 1021}]}, {"c": [{"v": 16}, {"v": 118}]}, {"c": [{"v": 9}, {"v": 1107}]}, {"c": [{"v": 18}, {"v": 900}]}, {"c": [{"v": 3}, {"v": 584}]}, {"c": [{"v": 20}, {"v": 76}]}, {"c": [{"v": 19}, {"v": 11}]}], "cols": [{"label": "city", "id": "city", "type": "number"}, {"label": "population", "id": "population", "type": "number"}]},
+              {"cols": [{"id": "city", "label": "city", "type": "number"}, {"id": "population", "label": "population", "type": "number"}], "rows": [{"c": [{"v": 1}, {"v": 40639}]}, {"c": [{"v": 10}, {"v": 763}]}, {"c": [{"v": 4}, {"v": 5670}]}, {"c": [{"v": 5}, {"v": 8469}]}, {"c": [{"v": 13}, {"v": 11012}]}, {"c": [{"v": 14}, {"v": 2273}]}, {"c": [{"v": 15}, {"v": 5032}]}, {"c": [{"v": 8}, {"v": 937}]}, {"c": [{"v": 12}, {"v": 1395}]}, {"c": [{"v": 22}, {"v": 4825}]}, {"c": [{"v": 7}, {"v": 290}]}, {"c": [{"v": 6}, {"v": 3113}]}, {"c": [{"v": 21}, {"v": 657}]}, {"c": [{"v": 17}, {"v": 581}]}, {"c": [{"v": 11}, {"v": 1021}]}, {"c": [{"v": 16}, {"v": 118}]}, {"c": [{"v": 9}, {"v": 1107}]}, {"c": [{"v": 18}, {"v": 900}]}, {"c": [{"v": 3}, {"v": 584}]}, {"c": [{"v": 20}, {"v": 76}]}, {"c": [{"v": 19}, {"v": 11}]}]},
               {},
-              {"source_index": 1, "fields": "city,population", "name": 1},
+              {"source_index": 0, "fields": "city,population", "name": 0},
               0,
               21);
           }
@@ -14392,7 +14423,7 @@ GROUP BY city
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name city_renew
@@ -14411,7 +14442,7 @@ ORDER BY renew_by_city DESC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">chart</span> columns --data city_renew --fields city,renew_by_city
@@ -14427,7 +14458,7 @@ ORDER BY renew_by_city DESC
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[44]:</div>
+<div class="prompt output_prompt">Out[13]:</div>
 
 
 
@@ -14435,7 +14466,7 @@ ORDER BY renew_by_city DESC
 
     <div class="bqgc-container">
       
-      <div class="bqgc " id="6_152436759709">
+      <div class="bqgc " id="3_152440792400">
       </div>
     </div>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
@@ -14462,7 +14493,7 @@ ORDER BY renew_by_city DESC
       });
 
       require(['datalab/charting',
-               'datalab/element!6_152436759709',
+               'datalab/element!3_152440792400',
                'base/js/events',
                'datalab/style!/nbextensions/gcpdatalab/charting.css'
               ],
@@ -14473,9 +14504,9 @@ ORDER BY renew_by_city DESC
               events,
               'columns',
               [],
-              {"rows": [{"c": [{"v": 1}, {"v": 0.8945960127765824}]}, {"c": [{"v": 14}, {"v": 0.8189751372584029}]}, {"c": [{"v": 16}, {"v": 0.8168234643054787}]}, {"c": [{"v": 17}, {"v": 0.8127863844643247}]}, {"c": [{"v": 7}, {"v": 0.8071678266620477}]}, {"c": [{"v": 13}, {"v": 0.8046112985334092}]}, {"c": [{"v": 4}, {"v": 0.7876644693624822}]}, {"c": [{"v": 5}, {"v": 0.7868372006362852}]}, {"c": [{"v": 22}, {"v": 0.7864741596560252}]}, {"c": [{"v": 15}, {"v": 0.7863995501572723}]}, {"c": [{"v": 18}, {"v": 0.781381180189894}]}, {"c": [{"v": 19}, {"v": 0.7798003523194363}]}, {"c": [{"v": 20}, {"v": 0.779194753142649}]}, {"c": [{"v": 11}, {"v": 0.7785532844289343}]}, {"c": [{"v": 6}, {"v": 0.7748307372423409}]}, {"c": [{"v": 10}, {"v": 0.7684719825969545}]}, {"c": [{"v": 3}, {"v": 0.7579729978471905}]}, {"c": [{"v": 12}, {"v": 0.7488124303143071}]}, {"c": [{"v": 8}, {"v": 0.7483064937021473}]}, {"c": [{"v": 21}, {"v": 0.7167859733215604}]}, {"c": [{"v": 9}, {"v": 0.6872863817093813}]}], "cols": [{"label": "city", "id": "city", "type": "number"}, {"label": "renew_by_city", "id": "renew_by_city", "type": "number"}]},
+              {"cols": [{"id": "city", "label": "city", "type": "number"}, {"id": "renew_by_city", "label": "renew_by_city", "type": "number"}], "rows": [{"c": [{"v": 1}, {"v": 0.8945960127765824}]}, {"c": [{"v": 14}, {"v": 0.8189751372584029}]}, {"c": [{"v": 16}, {"v": 0.8168234643054787}]}, {"c": [{"v": 17}, {"v": 0.8127863844643247}]}, {"c": [{"v": 7}, {"v": 0.8071678266620477}]}, {"c": [{"v": 13}, {"v": 0.8046112985334092}]}, {"c": [{"v": 4}, {"v": 0.7876644693624822}]}, {"c": [{"v": 5}, {"v": 0.7868372006362852}]}, {"c": [{"v": 22}, {"v": 0.7864741596560252}]}, {"c": [{"v": 15}, {"v": 0.7863995501572723}]}, {"c": [{"v": 18}, {"v": 0.781381180189894}]}, {"c": [{"v": 19}, {"v": 0.7798003523194363}]}, {"c": [{"v": 20}, {"v": 0.779194753142649}]}, {"c": [{"v": 11}, {"v": 0.7785532844289343}]}, {"c": [{"v": 6}, {"v": 0.7748307372423409}]}, {"c": [{"v": 10}, {"v": 0.7684719825969545}]}, {"c": [{"v": 3}, {"v": 0.7579729978471905}]}, {"c": [{"v": 12}, {"v": 0.7488124303143071}]}, {"c": [{"v": 8}, {"v": 0.7483064937021473}]}, {"c": [{"v": 21}, {"v": 0.7167859733215604}]}, {"c": [{"v": 9}, {"v": 0.6872863817093813}]}]},
               {},
-              {"source_index": 2, "fields": "city,renew_by_city", "name": 2},
+              {"source_index": 1, "fields": "city,renew_by_city", "name": 1},
               0,
               21);
           }
@@ -14505,7 +14536,7 @@ ORDER BY renew_by_city DESC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name city_renew
@@ -14524,7 +14555,7 @@ ORDER BY renew_by_city DESC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">chart</span> columns --data city_renew --fields city,renew_by_city
@@ -14540,7 +14571,7 @@ ORDER BY renew_by_city DESC
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[46]:</div>
+<div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -14548,7 +14579,7 @@ ORDER BY renew_by_city DESC
 
     <div class="bqgc-container">
       
-      <div class="bqgc " id="7_152436760604">
+      <div class="bqgc " id="4_152440792625">
       </div>
     </div>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
@@ -14575,7 +14606,7 @@ ORDER BY renew_by_city DESC
       });
 
       require(['datalab/charting',
-               'datalab/element!7_152436760604',
+               'datalab/element!4_152440792625',
                'base/js/events',
                'datalab/style!/nbextensions/gcpdatalab/charting.css'
               ],
@@ -14586,9 +14617,9 @@ ORDER BY renew_by_city DESC
               events,
               'columns',
               [],
-              {"rows": [{"c": [{"v": 1}, {"v": 0.8957308843271565}]}, {"c": [{"v": 19}, {"v": 0.8531468531468531}]}, {"c": [{"v": 16}, {"v": 0.78980490874764}]}, {"c": [{"v": 14}, {"v": 0.7861950763477719}]}, {"c": [{"v": 17}, {"v": 0.7710740785792483}]}, {"c": [{"v": 9}, {"v": 0.7675121891007838}]}, {"c": [{"v": 13}, {"v": 0.7637058753366438}]}, {"c": [{"v": 7}, {"v": 0.7519286403085824}]}, {"c": [{"v": 5}, {"v": 0.7464286949603957}]}, {"c": [{"v": 10}, {"v": 0.7457795431976166}]}, {"c": [{"v": 22}, {"v": 0.7445258853483527}]}, {"c": [{"v": 4}, {"v": 0.7395663567973507}]}, {"c": [{"v": 15}, {"v": 0.7389468455042225}]}, {"c": [{"v": 11}, {"v": 0.7377781141213864}]}, {"c": [{"v": 6}, {"v": 0.7349130583020798}]}, {"c": [{"v": 3}, {"v": 0.7313613771366226}]}, {"c": [{"v": 18}, {"v": 0.7240743708927713}]}, {"c": [{"v": 12}, {"v": 0.7027717602621786}]}, {"c": [{"v": 8}, {"v": 0.7011804384485666}]}, {"c": [{"v": 20}, {"v": 0.6908358509566969}]}, {"c": [{"v": 21}, {"v": 0.6564617618586641}]}], "cols": [{"label": "city", "id": "city", "type": "number"}, {"label": "renew_by_city", "id": "renew_by_city", "type": "number"}]},
+              {"cols": [{"id": "city", "label": "city", "type": "number"}, {"id": "renew_by_city", "label": "renew_by_city", "type": "number"}], "rows": [{"c": [{"v": 1}, {"v": 0.8957308843271565}]}, {"c": [{"v": 19}, {"v": 0.8531468531468531}]}, {"c": [{"v": 16}, {"v": 0.78980490874764}]}, {"c": [{"v": 14}, {"v": 0.7861950763477719}]}, {"c": [{"v": 17}, {"v": 0.7710740785792483}]}, {"c": [{"v": 9}, {"v": 0.7675121891007838}]}, {"c": [{"v": 13}, {"v": 0.7637058753366438}]}, {"c": [{"v": 7}, {"v": 0.7519286403085824}]}, {"c": [{"v": 5}, {"v": 0.7464286949603957}]}, {"c": [{"v": 10}, {"v": 0.7457795431976166}]}, {"c": [{"v": 22}, {"v": 0.7445258853483527}]}, {"c": [{"v": 4}, {"v": 0.7395663567973507}]}, {"c": [{"v": 15}, {"v": 0.7389468455042225}]}, {"c": [{"v": 11}, {"v": 0.7377781141213864}]}, {"c": [{"v": 6}, {"v": 0.7349130583020798}]}, {"c": [{"v": 3}, {"v": 0.7313613771366226}]}, {"c": [{"v": 18}, {"v": 0.7240743708927713}]}, {"c": [{"v": 12}, {"v": 0.7027717602621786}]}, {"c": [{"v": 8}, {"v": 0.7011804384485666}]}, {"c": [{"v": 20}, {"v": 0.6908358509566969}]}, {"c": [{"v": 21}, {"v": 0.6564617618586641}]}]},
               {},
-              {"source_index": 2, "fields": "city,renew_by_city", "name": 2},
+              {"source_index": 1, "fields": "city,renew_by_city", "name": 1},
               0,
               21);
           }
@@ -14628,7 +14659,7 @@ ORDER BY renew_by_city DESC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name gender_describe
@@ -14642,7 +14673,7 @@ SELECT COUNT(gender) AS gen FROM `w207_kkbox_bq_data.members` AS members GROUP B
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gender_describe</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -14658,14 +14689,14 @@ SELECT COUNT(gender) AS gen FROM `w207_kkbox_bq_data.members` AS members GROUP B
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[52]:</div>
+<div class="prompt output_prompt">Out[17]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="14_152436780635"><table><tbody><tr><th>gen</th></tr><tr><td>1144613</td></tr><tr><td>1195355</td></tr><tr><td>0</td></tr></tbody></table></div>
-    <br>(rows: 3, time: 0.2s, cached, job: job_AfNz0MGXT8OgGZx6EY3RMrmDKeOA)<br>
+    <div class="bqtv" id="5_152440793051"><table><tbody><tr><th>gen</th></tr><tr><td>1144613</td></tr><tr><td>1195355</td></tr><tr><td>0</td></tr></tbody></table></div>
+    <br>(rows: 3, time: 0.1s, cached, job: job_f-7dC5RGj1sxZ03VyRnB5hZHwHwc)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -14688,10 +14719,10 @@ SELECT COUNT(gender) AS gen FROM `w207_kkbox_bq_data.members` AS members GROUP B
         }
       });
 
-      require(['datalab/charting', 'datalab/element!14_152436780635', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!5_152440793051', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 1144613}]}, {"c": [{"v": 1195355}]}, {"c": [{"v": 0}]}], "cols": [{"label": "gen", "id": "gen", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "gen", "label": "gen", "type": "number"}], "rows": [{"c": [{"v": 1144613}]}, {"c": [{"v": 1195355}]}, {"c": [{"v": 0}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -14705,7 +14736,7 @@ SELECT COUNT(gender) AS gen FROM `w207_kkbox_bq_data.members` AS members GROUP B
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 1, fields: 'gen'},
+            {source_index: 4, fields: 'gen'},
             0,
             3);
         }
@@ -14722,7 +14753,7 @@ SELECT COUNT(gender) AS gen FROM `w207_kkbox_bq_data.members` AS members GROUP B
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name gender_describe
@@ -14736,7 +14767,7 @@ SELECT COUNT(members_gender) AS gen FROM `w207_kkbox_bq_data.members_filtered_10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gender_describe</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -14752,14 +14783,14 @@ SELECT COUNT(members_gender) AS gen FROM `w207_kkbox_bq_data.members_filtered_10
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[54]:</div>
+<div class="prompt output_prompt">Out[19]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="15_152436780843"><table><tbody><tr><th>gen</th></tr><tr><td>24507</td></tr><tr><td>21630</td></tr><tr><td>0</td></tr></tbody></table></div>
-    <br>(rows: 3, time: 0.1s, cached, job: job__0rEg7lP0hion9yO77VylbSMR6ij)<br>
+    <div class="bqtv" id="6_152440793280"><table><tbody><tr><th>gen</th></tr><tr><td>24507</td></tr><tr><td>21630</td></tr><tr><td>0</td></tr></tbody></table></div>
+    <br>(rows: 3, time: 0.1s, cached, job: job_UQpyCpuyhHXXuamcNGGkR4sNpEDI)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -14782,10 +14813,10 @@ SELECT COUNT(members_gender) AS gen FROM `w207_kkbox_bq_data.members_filtered_10
         }
       });
 
-      require(['datalab/charting', 'datalab/element!15_152436780843', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!6_152440793280', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 24507}]}, {"c": [{"v": 21630}]}, {"c": [{"v": 0}]}], "cols": [{"label": "gen", "id": "gen", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "gen", "label": "gen", "type": "number"}], "rows": [{"c": [{"v": 24507}]}, {"c": [{"v": 21630}]}, {"c": [{"v": 0}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -14799,7 +14830,7 @@ SELECT COUNT(members_gender) AS gen FROM `w207_kkbox_bq_data.members_filtered_10
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 2, fields: 'gen'},
+            {source_index: 5, fields: 'gen'},
             0,
             3);
         }
@@ -14826,7 +14857,7 @@ SELECT COUNT(members_gender) AS gen FROM `w207_kkbox_bq_data.members_filtered_10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name describe_members
@@ -14841,7 +14872,7 @@ FROM `w207_kkbox_bq_data.members`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">describe_members</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -14857,14 +14888,14 @@ FROM `w207_kkbox_bq_data.members`
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[56]:</div>
+<div class="prompt output_prompt">Out[21]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="16_152436781060"><table><tbody><tr><th>city_count</th><th>registration_type</th><th>average_bd</th></tr><tr><td>21</td><td>18</td><td>9.795794295951625</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.2s, cached, job: job_s_s-BUim86KEeQsaPWK8aI7ePUsl)<br>
+    <div class="bqtv" id="7_152440793506"><table><tbody><tr><th>city_count</th><th>registration_type</th><th>average_bd</th></tr><tr><td>21</td><td>18</td><td>9.795794295951625</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.1s, cached, job: job_pWy5-Mbc_GZuKfscvlQjXXoNUPZq)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -14887,10 +14918,10 @@ FROM `w207_kkbox_bq_data.members`
         }
       });
 
-      require(['datalab/charting', 'datalab/element!16_152436781060', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!7_152440793506', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 21}, {"v": 18}, {"v": 9.795794295951625}]}], "cols": [{"label": "city_count", "id": "city_count", "type": "number"}, {"label": "registration_type", "id": "registration_type", "type": "number"}, {"label": "average_bd", "id": "average_bd", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "city_count", "label": "city_count", "type": "number"}, {"id": "registration_type", "label": "registration_type", "type": "number"}, {"id": "average_bd", "label": "average_bd", "type": "number"}], "rows": [{"c": [{"v": 21}, {"v": 18}, {"v": 9.795794295951625}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -14904,7 +14935,7 @@ FROM `w207_kkbox_bq_data.members`
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 3, fields: 'city_count,registration_type,average_bd'},
+            {source_index: 6, fields: 'city_count,registration_type,average_bd'},
             0,
             1);
         }
@@ -14921,7 +14952,7 @@ FROM `w207_kkbox_bq_data.members`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name describe_members
@@ -14936,7 +14967,7 @@ FROM `w207_kkbox_bq_data.members_filtered_100k`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">describe_members</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -14952,14 +14983,14 @@ FROM `w207_kkbox_bq_data.members_filtered_100k`
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[58]:</div>
+<div class="prompt output_prompt">Out[23]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="17_152436781276"><table><tbody><tr><th>city_count</th><th>registration_type</th><th>average_bd</th></tr><tr><td>21</td><td>5</td><td>14.915069350530343</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.2s, cached, job: job_RCIg6slHgd8nt-De7OuUfeub23gU)<br>
+    <div class="bqtv" id="8_152440793736"><table><tbody><tr><th>city_count</th><th>registration_type</th><th>average_bd</th></tr><tr><td>21</td><td>5</td><td>14.915069350530343</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.2s, cached, job: job_En4ZLV6gRxAkqLMfkzDC40hIRQMg)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -14982,10 +15013,10 @@ FROM `w207_kkbox_bq_data.members_filtered_100k`
         }
       });
 
-      require(['datalab/charting', 'datalab/element!17_152436781276', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!8_152440793736', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 21}, {"v": 5}, {"v": 14.915069350530343}]}], "cols": [{"label": "city_count", "id": "city_count", "type": "number"}, {"label": "registration_type", "id": "registration_type", "type": "number"}, {"label": "average_bd", "id": "average_bd", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "city_count", "label": "city_count", "type": "number"}, {"id": "registration_type", "label": "registration_type", "type": "number"}, {"id": "average_bd", "label": "average_bd", "type": "number"}], "rows": [{"c": [{"v": 21}, {"v": 5}, {"v": 14.915069350530343}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -14999,7 +15030,7 @@ FROM `w207_kkbox_bq_data.members_filtered_100k`
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 4, fields: 'city_count,registration_type,average_bd'},
+            {source_index: 7, fields: 'city_count,registration_type,average_bd'},
             0,
             1);
         }
@@ -15025,7 +15056,7 @@ FROM `w207_kkbox_bq_data.members_filtered_100k`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name describe_transactions
@@ -15041,7 +15072,7 @@ FROM `w207_kkbox_bq_data.transactions`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">describe_transactions</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -15057,14 +15088,14 @@ FROM `w207_kkbox_bq_data.transactions`
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[60]:</div>
+<div class="prompt output_prompt">Out[25]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="18_152436781483"><table><tbody><tr><th>payment_method</th><th>num_plans</th><th>prop_auto_renew</th><th>plan_revenue</th><th>prop_cancel</th></tr><tr><td>40</td><td>51</td><td>0.8519661406812573</td><td>141.98732048354586</td><td>0.03976522648819046</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.1s, cached, job: job_w7nJR7nlHvuW0mk-jUsSP5EW_pu6)<br>
+    <div class="bqtv" id="9_152440793970"><table><tbody><tr><th>payment_method</th><th>num_plans</th><th>prop_auto_renew</th><th>plan_revenue</th><th>prop_cancel</th></tr><tr><td>40</td><td>51</td><td>0.8519661406812573</td><td>141.98732048354586</td><td>0.03976522648819046</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.2s, cached, job: job_C0C982m91W0Wdkphi-ctQIPUfeNp)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -15087,10 +15118,10 @@ FROM `w207_kkbox_bq_data.transactions`
         }
       });
 
-      require(['datalab/charting', 'datalab/element!18_152436781483', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!9_152440793970', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 40}, {"v": 51}, {"v": 0.8519661406812573}, {"v": 141.98732048354586}, {"v": 0.03976522648819046}]}], "cols": [{"label": "payment_method", "id": "payment_method", "type": "number"}, {"label": "num_plans", "id": "num_plans", "type": "number"}, {"label": "prop_auto_renew", "id": "prop_auto_renew", "type": "number"}, {"label": "plan_revenue", "id": "plan_revenue", "type": "number"}, {"label": "prop_cancel", "id": "prop_cancel", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "payment_method", "label": "payment_method", "type": "number"}, {"id": "num_plans", "label": "num_plans", "type": "number"}, {"id": "prop_auto_renew", "label": "prop_auto_renew", "type": "number"}, {"id": "plan_revenue", "label": "plan_revenue", "type": "number"}, {"id": "prop_cancel", "label": "prop_cancel", "type": "number"}], "rows": [{"c": [{"v": 40}, {"v": 51}, {"v": 0.8519661406812573}, {"v": 141.98732048354586}, {"v": 0.03976522648819046}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -15104,7 +15135,7 @@ FROM `w207_kkbox_bq_data.transactions`
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 5, fields: 'payment_method,num_plans,prop_auto_renew,plan_revenue,prop_cancel'},
+            {source_index: 8, fields: 'payment_method,num_plans,prop_auto_renew,plan_revenue,prop_cancel'},
             0,
             1);
         }
@@ -15121,7 +15152,7 @@ FROM `w207_kkbox_bq_data.transactions`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name describe_transactions
@@ -15137,7 +15168,7 @@ FROM `w207_kkbox_bq_data.transactions_filtered_100k`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">describe_transactions</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -15153,14 +15184,14 @@ FROM `w207_kkbox_bq_data.transactions_filtered_100k`
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[62]:</div>
+<div class="prompt output_prompt">Out[27]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="19_152436781700"><table><tbody><tr><th>payment_method</th><th>num_plans</th><th>prop_auto_renew</th><th>plan_revenue</th><th>prop_cancel</th></tr><tr><td>37</td><td>42</td><td>0.8315028382832431</td><td>145.68530483745585</td><td>0.031064849396989492</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.1s, cached, job: job_HNnfHsxnSm7qJdbkItU1IJPU4-ej)<br>
+    <div class="bqtv" id="10_152440794228"><table><tbody><tr><th>payment_method</th><th>num_plans</th><th>prop_auto_renew</th><th>plan_revenue</th><th>prop_cancel</th></tr><tr><td>37</td><td>42</td><td>0.8315028382832431</td><td>145.68530483745585</td><td>0.031064849396989492</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.1s, cached, job: job_nAXdKDgpvN-O1wNKCgLNnE-ilnet)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -15183,10 +15214,10 @@ FROM `w207_kkbox_bq_data.transactions_filtered_100k`
         }
       });
 
-      require(['datalab/charting', 'datalab/element!19_152436781700', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!10_152440794228', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": 37}, {"v": 42}, {"v": 0.8315028382832431}, {"v": 145.68530483745585}, {"v": 0.031064849396989492}]}], "cols": [{"label": "payment_method", "id": "payment_method", "type": "number"}, {"label": "num_plans", "id": "num_plans", "type": "number"}, {"label": "prop_auto_renew", "id": "prop_auto_renew", "type": "number"}, {"label": "plan_revenue", "id": "plan_revenue", "type": "number"}, {"label": "prop_cancel", "id": "prop_cancel", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "payment_method", "label": "payment_method", "type": "number"}, {"id": "num_plans", "label": "num_plans", "type": "number"}, {"id": "prop_auto_renew", "label": "prop_auto_renew", "type": "number"}, {"id": "plan_revenue", "label": "plan_revenue", "type": "number"}, {"id": "prop_cancel", "label": "prop_cancel", "type": "number"}], "rows": [{"c": [{"v": 37}, {"v": 42}, {"v": 0.8315028382832431}, {"v": 145.68530483745585}, {"v": 0.031064849396989492}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -15200,7 +15231,7 @@ FROM `w207_kkbox_bq_data.transactions_filtered_100k`
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 6, fields: 'payment_method,num_plans,prop_auto_renew,plan_revenue,prop_cancel'},
+            {source_index: 9, fields: 'payment_method,num_plans,prop_auto_renew,plan_revenue,prop_cancel'},
             0,
             1);
         }
@@ -15226,7 +15257,7 @@ FROM `w207_kkbox_bq_data.transactions_filtered_100k`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name describe_user_logs
@@ -15241,7 +15272,7 @@ FROM `w207_kkbox_bq_data.user_logs`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">describe_user_logs</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -15257,14 +15288,14 @@ FROM `w207_kkbox_bq_data.user_logs`
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[64]:</div>
+<div class="prompt output_prompt">Out[29]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="20_152436781906"><table><tbody><tr><th>listening_time</th><th>number_unique</th><th>average_date</th><th>sum_full_songs</th><th>sum_25per_songs</th></tr><tr><td>-5.665342138557264e+20</td><td>11798546903</td><td>20157392.77279009</td><td>12045813613</td><td>2553501878</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.1s, cached, job: job_SJWC3sRNxUqMaP_eGiz7LB-SRhZk)<br>
+    <div class="bqtv" id="11_152440794443"><table><tbody><tr><th>listening_time</th><th>number_unique</th><th>average_date</th><th>sum_full_songs</th><th>sum_25per_songs</th></tr><tr><td>-5.665342138557264e+20</td><td>11798546903</td><td>20157392.77279009</td><td>12045813613</td><td>2553501878</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.2s, cached, job: job_6mJM4fL2LHPntb0u8VSV-XZL6tkz)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -15287,10 +15318,10 @@ FROM `w207_kkbox_bq_data.user_logs`
         }
       });
 
-      require(['datalab/charting', 'datalab/element!20_152436781906', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!11_152440794443', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": -5.665342138557264e+20}, {"v": 11798546903}, {"v": 20157392.77279009}, {"v": 12045813613}, {"v": 2553501878}]}], "cols": [{"label": "listening_time", "id": "listening_time", "type": "number"}, {"label": "number_unique", "id": "number_unique", "type": "number"}, {"label": "average_date", "id": "average_date", "type": "number"}, {"label": "sum_full_songs", "id": "sum_full_songs", "type": "number"}, {"label": "sum_25per_songs", "id": "sum_25per_songs", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "listening_time", "label": "listening_time", "type": "number"}, {"id": "number_unique", "label": "number_unique", "type": "number"}, {"id": "average_date", "label": "average_date", "type": "number"}, {"id": "sum_full_songs", "label": "sum_full_songs", "type": "number"}, {"id": "sum_25per_songs", "label": "sum_25per_songs", "type": "number"}], "rows": [{"c": [{"v": -5.665342138557264e+20}, {"v": 11798546903}, {"v": 20157392.77279009}, {"v": 12045813613}, {"v": 2553501878}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -15304,7 +15335,7 @@ FROM `w207_kkbox_bq_data.user_logs`
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 7, fields: 'listening_time,number_unique,average_date,sum_full_songs,sum_25per_songs'},
+            {source_index: 10, fields: 'listening_time,number_unique,average_date,sum_full_songs,sum_25per_songs'},
             0,
             1);
         }
@@ -15321,7 +15352,7 @@ FROM `w207_kkbox_bq_data.user_logs`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">bq</span> query --name describe_user_logs
@@ -15336,7 +15367,7 @@ FROM `w207_kkbox_bq_data.user_logs_filtered_100k`
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">describe_user_logs</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
@@ -15352,14 +15383,14 @@ FROM `w207_kkbox_bq_data.user_logs_filtered_100k`
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[66]:</div>
+<div class="prompt output_prompt">Out[31]:</div>
 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-    <div class="bqtv" id="21_152436782112"><table><tbody><tr><th>listening_time</th><th>number_unique</th><th>average_date</th><th>sum_full_songs</th><th>sum_25per_songs</th></tr><tr><td>-3.1202667405739975e+19</td><td>711055859</td><td>20158095.16186604</td><td>719873498</td><td>155565964</td></tr></tbody></table></div>
-    <br>(rows: 1, time: 0.1s, cached, job: job_6Zclmg8gA3QsOm_qb04JlROqwHV9)<br>
+    <div class="bqtv" id="12_152440794678"><table><tbody><tr><th>listening_time</th><th>number_unique</th><th>average_date</th><th>sum_full_songs</th><th>sum_25per_songs</th></tr><tr><td>-3.1202667405739975e+19</td><td>711055859</td><td>20158095.16186604</td><td>719873498</td><td>155565964</td></tr></tbody></table></div>
+    <br>(rows: 1, time: 0.1s, cached, job: job_DA3Q3SG7Rcn8cP_EED6eDnhkcXRR)<br>
     <script src="./W207_FinalProj_03DataFilter_KennedyKhannaOlson_Final_files/require.js.download"></script>
     <script>
       require.config({
@@ -15382,10 +15413,10 @@ FROM `w207_kkbox_bq_data.user_logs_filtered_100k`
         }
       });
 
-      require(['datalab/charting', 'datalab/element!21_152436782112', 'base/js/events',
+      require(['datalab/charting', 'datalab/element!12_152440794678', 'base/js/events',
           'datalab/style!/nbextensions/gcpdatalab/charting.css'],
         function(charts, dom, events) {
-          charts.render('gcharts', dom, events, 'table', [], {"rows": [{"c": [{"v": -3.1202667405739975e+19}, {"v": 711055859}, {"v": 20158095.16186604}, {"v": 719873498}, {"v": 155565964}]}], "cols": [{"label": "listening_time", "id": "listening_time", "type": "number"}, {"label": "number_unique", "id": "number_unique", "type": "number"}, {"label": "average_date", "id": "average_date", "type": "number"}, {"label": "sum_full_songs", "id": "sum_full_songs", "type": "number"}, {"label": "sum_25per_songs", "id": "sum_25per_songs", "type": "number"}]},
+          charts.render('gcharts', dom, events, 'table', [], {"cols": [{"id": "listening_time", "label": "listening_time", "type": "number"}, {"id": "number_unique", "label": "number_unique", "type": "number"}, {"id": "average_date", "label": "average_date", "type": "number"}, {"id": "sum_full_songs", "label": "sum_full_songs", "type": "number"}, {"id": "sum_25per_songs", "label": "sum_25per_songs", "type": "number"}], "rows": [{"c": [{"v": -3.1202667405739975e+19}, {"v": 711055859}, {"v": 20158095.16186604}, {"v": 719873498}, {"v": 155565964}]}]},
             {
               pageSize: 25,
               cssClassNames:  {
@@ -15399,7 +15430,7 @@ FROM `w207_kkbox_bq_data.user_logs_filtered_100k`
                 rowNumberCell: 'gchart-table-rownumcell'
               }
             },
-            {source_index: 8, fields: 'listening_time,number_unique,average_date,sum_full_songs,sum_25per_songs'},
+            {source_index: 11, fields: 'listening_time,number_unique,average_date,sum_full_songs,sum_25per_songs'},
             0,
             1);
         }
